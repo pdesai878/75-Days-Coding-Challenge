@@ -5,13 +5,11 @@ class Solution:
         
         for ind,el in enumerate(nums):
             if el!=0:
-                nums[lastNonZero]=el
+                nums[lastNonZero],nums[ind]=nums[ind],nums[lastNonZero]
                 lastNonZero+=1
-                
-        for ind in range(lastNonZero,n):
-            nums[ind]=0
         return nums
-                                            
+                
+                           
             
         
         
