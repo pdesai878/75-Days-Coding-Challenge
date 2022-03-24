@@ -1,16 +1,15 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        res=deque()
-        n=len(digits)-1
-        curr=0
-        for el in digits:
-            curr+=el*(10**n)
-            n-=1
-        curr+=1
-        while curr:
-            res.appendleft(curr%10)
-            curr//=10
+        n=len(digits)
+        for i in range(n-1,-1,-1):
+            if digits[i]<9:
+                digits[i]+=1
+                return digits
+            digits[i]=0
+        res=[0]*(n+1)
+        res[0]=1
         return res
+        
             
             
         
