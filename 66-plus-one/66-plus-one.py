@@ -5,7 +5,9 @@ class Solution:
             if digits[i]<9:
                 digits[i]+=1
                 return digits
-            digits[i]=0
+            else:
+                
+                digits[i]=0
         res=[0]*(n+1)
         res[0]=1
         return res
