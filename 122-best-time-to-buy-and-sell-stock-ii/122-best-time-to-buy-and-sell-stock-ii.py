@@ -1,14 +1,26 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        mx=0
-        mnBuy=prices[0]
-        mxProfit=0
-        for el in prices[1:]:
+        @lru_cache(None)
+        def getMaxProfit(ind,prevBuy):
+            if ind==len(prices):
+                return 0
+            mx=0
+            #buy now or dont buy now
+            if not prevBuy:
+                mx=max(-prices[ind]+getMaxProfit(ind+1,True),
+                       getMaxProfit(ind+1,prevBuy))
+                       
+            #sell now or dont sell
+            else:
+                mx=max(prices[ind]+getMaxProfit(ind+1,False), getMaxProfit(ind+1,prevBuy))
+            return mx
+                       
+        return getMaxProfit(0,False)
+                       
             
-            if el-mnBuy>0:
-                mxProfit=el-mnBuy
-                mx+=mxProfit
-            mnBuy=el
-        return mx
-       
+                
+                       
+                     
+            
+            
         
