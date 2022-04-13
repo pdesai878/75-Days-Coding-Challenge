@@ -1,25 +1,20 @@
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
-        red_cnt=white_cnt=blue_cnt=0
-        for el in nums:
-            if el==0: red_cnt+=1
-            elif el==1: blue_cnt+=1
-            else: white_cnt+=1
-        
-        i=0
-        while red_cnt:
-            nums[i]=0
-            i+=1
-            red_cnt-=1
-        while blue_cnt:
-            nums[i]=1
-            i+=1
-            blue_cnt-=1
-        while white_cnt:
-            nums[i]=2
-            i+=1
-            white_cnt-=1
+        #one pass approach
+        n=len(nums)
+        left,mid,right=0,0,n-1
+
+        """
+        logic to be implemented is: all elements towards left of left pointer will contain all 0s AND all elements towards right of right pointer will contain all 2s. 
+        """
+        while mid<=right:
+                if nums[mid]==0:
+                    nums[left],nums[mid]=nums[mid],nums[left]
+                    left+=1
+                    mid+=1
+                elif nums[mid]==1:
+                    mid+=1
+                elif nums[mid]==2:
+                    nums[right],nums[mid]=nums[mid],nums[right]
+                    right-=1
         return nums
-        
-        
-            
