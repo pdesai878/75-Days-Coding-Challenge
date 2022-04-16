@@ -3,16 +3,21 @@ class Solution:
         row=len(matrix)
         col=len(matrix[0])
         
-        i=0
-        j=col-1
-        
-        while i<row and j>=0:
-            if matrix[i][j]<target:
-                i+=1
-            elif matrix[i][j]>target:
-                j-=1
-            else:
-                return True
-        return False
+        s=0
+        e=(row*col)-1
+        while s<=e:
+            mid=s+(e-s)//2
             
+            r=mid//col
+            c=mid%col
+            
+            if matrix[r][c]==target:
+                return True
+            
+            elif matrix[r][c]<target:
+                s=mid+1
+            else:
+                e=mid-1
+        return False
+                    
         
