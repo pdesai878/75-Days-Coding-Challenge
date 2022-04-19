@@ -11,8 +11,6 @@ class Solution:
             
             for i in range(n):
                 ind=abs(arr[i])-1
-                # if ind>=n:
-                #     continue
                 if arr[ind]<0:
                     return ind+1
                 arr[ind]*=-1
@@ -25,17 +23,17 @@ class Solution:
             #         s[el]+=1
             #         return el
                     
-            # slow=fast=arr[0]
-            # while True:
-            #     slow=arr[slow]
-            #     fast=arr[arr[fast]]
-            #     if slow==fast:
-            #         break
-            # slow=arr[0]
-            # while slow!=fast:
-            #     slow=arr[slow]
-            #     fast=arr[fast]
-            # return fast
+            slow=fast=arr[0]-1
+            while True:
+                slow=arr[slow]
+                fast=arr[arr[fast]]
+                if slow==fast:
+                    break
+            slow=arr[0]-1
+            while slow!=fast:
+                slow=arr[slow]
+                fast=arr[fast]
+            return fast
             
         actual_sum=sum(arr)
         expected_sum=n*(n+1)//2
