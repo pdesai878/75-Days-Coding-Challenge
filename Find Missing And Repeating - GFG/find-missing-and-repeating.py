@@ -2,19 +2,35 @@
 
 class Solution:
     def findTwoElement( self,arr, n): 
-        s={}
-        for el in arr:
-            if el not in s:
-                s[el]=1
-            else:
-                s[el]+=1
-        # print(s)
-        for i in range(1,n+1):
-            if i not in s:
-                missing=i
-            elif i in s and s[i]>1:
-                dup=i
-        return dup,missing
+        
+        def find_dup():
+            s={}
+            for el in arr:
+                if el not in s:
+                    s[el]=1
+                else:
+                    s[el]+=1
+                    return el
+            # slow=fast=arr[0]
+            # while True:
+            #     slow=arr[slow]
+            #     fast=arr[arr[fast]]
+            #     if slow==fast:
+            #         break
+            # slow=arr[0]
+            # while slow!=fast:
+            #     slow=arr[slow]
+            #     fast=arr[fast]
+            # return fast
+            
+        actual_sum=sum(arr)
+        expected_sum=n*(n+1)//2
+        
+        dup=find_dup()
+        
+        diff=expected_sum-actual_sum
+        
+        return dup,dup+diff
             
                 
     
