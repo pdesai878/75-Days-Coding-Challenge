@@ -4,13 +4,27 @@ class Solution:
     def findTwoElement( self,arr, n): 
         
         def find_dup():
-            s={}
-            for el in arr:
-                if el not in s:
-                    s[el]=1
-                else:
-                    s[el]+=1
-                    return el
+            arr.sort()
+            for i in range(1,n):
+                if arr[i]==arr[i-1]:
+                    return arr[i]
+            
+            # for i in range(n):
+            #     ind=abs(arr[i])
+            #     if ind>=n:
+            #         continue
+            #     if arr[ind]<0:
+            #         return ind
+            #     arr[ind]*=-1
+                
+            # s={}
+            # for el in arr:
+            #     if el not in s:
+            #         s[el]=1
+            #     else:
+            #         s[el]+=1
+            #         return el
+                    
             # slow=fast=arr[0]
             # while True:
             #     slow=arr[slow]
