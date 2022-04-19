@@ -4,18 +4,18 @@ class Solution:
     def findTwoElement( self,arr, n): 
         
         def find_dup():
-            arr.sort()
-            for i in range(1,n):
-                if arr[i]==arr[i-1]:
-                    return arr[i]
+            # arr.sort()
+            # for i in range(1,n):
+            #     if arr[i]==arr[i-1]:
+            #         return arr[i]
             
-            # for i in range(n):
-            #     ind=abs(arr[i])
-            #     if ind>=n:
-            #         continue
-            #     if arr[ind]<0:
-            #         return ind
-            #     arr[ind]*=-1
+            for i in range(n):
+                ind=abs(arr[i])-1
+                # if ind>=n:
+                #     continue
+                if arr[ind]<0:
+                    return ind+1
+                arr[ind]*=-1
                 
             # s={}
             # for el in arr:
