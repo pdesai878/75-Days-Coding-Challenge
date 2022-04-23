@@ -3,12 +3,12 @@ class Solution:
         res=1
         neg=False
         if n<0:
-            neg=True
             n=abs(n)
+            neg=True
         while n:
             if n&1:
-                n-=1
                 res*=x
+                n-=1
             else:
                 x*=x
                 n//=2
