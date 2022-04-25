@@ -6,14 +6,31 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        s=set()
-        l1=headA
-        while headA:
-            s.add(headA)
+        def length(node):
+            l=1
+            while node:
+                node=node.next
+                l+=1
+            return l
+        
+        l1=length(headA)
+        l2=length(headB)
+        
+        if l1<l2:
+            headA,headB=headB,headA
+            l1,l2=l2,l1
+        
+        diff=l1-l2
+        
+        while diff and headA:
             headA=headA.next
-        while headB:
-            if headB in s:
-                return headB
+            diff-=1
+       
+        while headA!=headB: 
+            headA=headA.next
             headB=headB.next
-        return None
+            
+        return headA
+        
+            
         
