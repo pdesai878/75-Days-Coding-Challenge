@@ -17,18 +17,25 @@ class Solution:
         if head is None or head.next is None or k==1:
             return head
         
-        
-        s=e=head
-        for _ in range(k-1):
-            e=e.next
-            if not e:
-                return head
-        
-        nextHead=self.reverseKGroup(e.next,k)
-        reverse(s,e)
-        s.next=nextHead
-        return e        
-        
+        e=head
+        dummy=ListNode(0)
+        prev=dummy
+        prev.next=head
+        i=1
+        while e:
+            if i%k==0:
+                nxt=e.next
+                s=prev.next
+                prev.next=e
+                reverse(s,e)
+                s.next=nxt
+                prev=s
+                e=nxt      
+            else:
+                e=e.next
+            i+=1
+        return dummy.next
+            
             
     
         
