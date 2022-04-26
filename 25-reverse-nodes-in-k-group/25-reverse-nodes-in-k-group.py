@@ -26,8 +26,8 @@ class Solution:
             if i%k==0:
                 nxt=e.next
                 s=prev.next
-                prev.next=e
                 reverse(s,e)
+                prev.next=e
                 s.next=nxt
                 prev=s
                 e=nxt      
