@@ -11,32 +11,20 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return
-        #merge lists
-        l1=head
-        while l1:
-            copy=Node(l1.val)
-            nxt=l1.next
-            l1.next=copy
-            copy.next=nxt
-            l1=nxt
-        #make random connections
-        l1=head
-        while l1:
-            if l1.random:
-                l1.next.random=l1.random.next
-            l1=l1.next.next
-            
-        #detach lists
+        dicti={}
         temp=head
-        dummy=Node(-1)
-        tail=dummy
         while temp:
-            tail.next=temp.next
-            tail=tail.next
-            
-            temp.next=tail.next
+            dicti[temp]=Node(temp.val)
             temp=temp.next
-        return dummy.next
+        temp=head
+        while temp:
+            if temp.random:
+                dicti[temp].random=dicti[temp.random]
+            if temp.next:
+                dicti[temp].next=dicti[temp.next]
+            
+            temp=temp.next
+        return dicti[head]
         
         
       
