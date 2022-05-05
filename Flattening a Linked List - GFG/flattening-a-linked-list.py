@@ -1,5 +1,6 @@
 #User function Template for python3
 
+
 '''
 
 class Node:
@@ -9,34 +10,36 @@ class Node:
         self.bottom=None
         
 '''
-def merge(l1,l2):
-    res=dummy=Node(-1)
-    while l1 and l2:
-        if l1.data <=l2.data:
-            dummy.bottom=l1
-            l1=l1.bottom
-        else:
-            dummy.bottom=l2
-            l2=l2.bottom
-        dummy=dummy.bottom
-    if l1:
-        dummy.bottom=l1
-    elif l2:
-        dummy.bottom=l2
-    return res.bottom
-            
 
 def flatten(root):
-    if not root or not root.next:
-        return root
-    l2=flatten(root.next)
-    l1=root
-    l3=merge(l1,l2)
-    return l3
+    def merge(l1,l2):
+        res=dummy=Node(-1)
+        while l1 and l2:
+            if l1.data<=l2.data:
+                dummy.bottom=l1
+                l1=l1.bottom
+            else:
+                dummy.bottom=l2
+                l2=l2.bottom
+            dummy=dummy.bottom
+        if l1:
+            dummy.bottom=l1
+        elif l2:
+            dummy.bottom=l2
+        return res.bottom
     
+    def flatten_list(node):
+        if not node:
+            return node
+            
+        l1=flatten_list(node.next)
+        l2=node
+        merged=merge(l1,l2)
+        return merged
+       
+            
     
-    
-    
+    return flatten_list(root)
 
 #{ 
 #  Driver Code Starts
