@@ -2,14 +2,11 @@
 class Solution:
 	def subsetSums(self, arr, N):
 	    def get_sum(s,ind):
-	        if ind>=N:
-	            res.append(s)
-	            return
+	        res.append(s)
+	        for i in range(ind,N):
+	            get_sum(s+arr[i],i+1)
 	        
-	        get_sum(s+arr[ind],ind+1)
-	        get_sum(s,ind+1)
 	        
-	            
 	    res=[]
 	    get_sum(0,0)
 	    return res
