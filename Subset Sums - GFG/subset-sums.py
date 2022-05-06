@@ -1,15 +1,16 @@
 #User function Template for python3
 class Solution:
 	def subsetSums(self, arr, N):
-	    def get_sum(s,ind):
-	        res.append(s)
-	        for i in range(ind,N):
-	            get_sum(s+arr[i],i+1)
-	        
-	        
+	    n=1<<N
 	    res=[]
-	    get_sum(0,0)
+	    for i in range(n):
+	        s=0
+	        for j in range(N):
+	            if i & (1<<j):
+	                s+=arr[j]
+	        res.append(s)
 	    return res
+	            
 	
 
 #{ 
