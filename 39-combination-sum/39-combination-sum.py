@@ -3,6 +3,7 @@ class Solution:
         def get_combo(temp,s,ind):
             if s>target:
                 return 
+            
             if s==target:
                 res.append(temp)
                 return
@@ -11,7 +12,7 @@ class Solution:
                 get_combo(temp+[candidates[i]],s+candidates[i],i)
         res=[]
         n=len(candidates)
-        candidates.sort()
+        # candidates.sort()
         get_combo([],0,0)
         return res
                 
