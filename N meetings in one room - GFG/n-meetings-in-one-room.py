@@ -5,25 +5,25 @@ class Solution:
     #Function to find the maximum number of meetings that can
     #be performed in a meeting room.
     def maximumMeetings(self,n,start,end):
+        #find out #non conflicting intervals
         intervals=[]
         for i in range(n):
-            intervals.append([start[i],end[i],i+1])
-        intervals.sort(key=lambda x:(x[1],x[2]))
+            intervals.append([start[i],end[i]])
         
+        """
+        sort intervals by end time.=> we'll be checking if starttime of current
+        interval is greater than endLimit.
+        if yes => count++
+        """
+        intervals.sort(key=lambda x:x[1])
         endLimit=intervals[0][1]
-        
-        res=[]
         count=1
         for i in range(1,n):
-            curr_start,curr_end,meet_no=intervals[i]
-            if curr_start<=endLimit:
-                pass
-            else:
+            st,en=intervals[i]
+            if st>endLimit:
+                endLimit=en
                 count+=1
-                res.append(meet_no)
-                endLimit=curr_end   
         return count
-                
 
 #{ 
 #  Driver Code Starts
