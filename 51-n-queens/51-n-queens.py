@@ -3,13 +3,13 @@ class Solution:
         def isPossible(row,col):
             #check top-bottom
             for i in range(row):
-                if visited[i][col]:
+                if visited[i][col]=="Q":
                     return False
             #right diagonal
             i=row
             j=col
             while i>=0 and j<n:
-                if visited[i][j]:
+                if visited[i][j]=="Q":
                     return False
                 i-=1
                 j+=1
@@ -17,7 +17,7 @@ class Solution:
             i=row
             j=col
             while i>=0 and j>=0:
-                if visited[i][j]:
+                if visited[i][j]=="Q":
                     return False
                 i-=1
                 j-=1
@@ -27,27 +27,19 @@ class Solution:
         def solve(row):
             if row==n:
                 temp=[]
-                string=""
-                for i in range(n):
-                    for j in range(n):
-                        if visited[i][j]:
-                            string+="Q"
-                        else:
-                            string+="."
+                for r in visited:
+                    temp.append("".join(r))
                     
-                    temp.append(string)
-                    string=""
                 res.append(temp)
-                
-                
+                      
             
             for col in range(n):
                 if isPossible(row,col):
-                    visited[row][col]=True
+                    visited[row][col]="Q"
                     solve(row+1)
-                    visited[row][col]=False
+                    visited[row][col]="."
             
-        visited=[[False for col in range(n)] for row in range(n)]
+        visited=[["." for col in range(n)] for row in range(n)]
         res=[]
         solve(0)
         return res
