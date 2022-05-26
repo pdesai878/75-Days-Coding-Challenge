@@ -7,7 +7,7 @@ class Solution:
 	    if n==1:
 	        return m
 		l=1
-		r=m//2
+		r=m//n
 		while l<=r:
 		    mid=l+(r-l)//2
 		    sq=mid**n
