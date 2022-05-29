@@ -2,6 +2,17 @@
 import bisect
 class Solution:
     def median(self, matrix, r, c):
+        def upper_bound(a,x):
+            lo, hi = 0, len(a)
+            while lo < hi:
+                mid = lo + (hi - lo) // 2
+                if a[mid] > x: hi = mid
+                else: lo = mid + 1
+            return lo
+                    
+                    
+        
+        
         row,col=len(matrix),len(matrix[0])
         if row==1 and col==1:
             return matrix[0][0]
@@ -16,7 +27,7 @@ class Solution:
             
             smaller_elements=0
             for row in matrix:
-                smaller_elements+=bisect.bisect_right(row,mid)
+                smaller_elements+=upper_bound(row,mid)
            
             if smaller_elements<req:
                 l=mid+1
