@@ -17,6 +17,7 @@ class Solution:
             smaller_elements=0
             for row in matrix:
                 smaller_elements+=bisect.bisect_right(row,mid)
+           
             if smaller_elements<req:
                 l=mid+1
             else:
