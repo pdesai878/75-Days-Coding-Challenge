@@ -1,35 +1,31 @@
 #User function Template for python3
-
+import sys
 class Solution:
     def kthElement(self,  arr1, arr2, n, m, k):
-        l=r=0
-        while l<n and r<m:
-            if arr1[l]<=arr2[r]:
-                
-                k-=1
-                if k==0:
-                    return arr1[l]
-                l+=1
-            else:
-                
-                k-=1
-                if k==0:
-                    return arr2[r]
-                r+=1
-                    
-        while l<n:
-            
-            k-=1
-            if k==0:
-                return arr1[l]
-            l+=1
+        if n>m:
+            return self.kthElement(arr2,arr1,m,n,k)
+        l=max(0,k-m)
+        r=min(k,n)
         
-        while r<m:
+        inf=sys.maxsize
+        
+        while l<=r:
+            cut1=l+(r-l)//2
+            cut2=k-cut1
             
-            k-=1
-            if k==0:
-                return arr2[r]
-            r+=1
+            l1=-inf if cut1==0 else arr1[cut1-1]
+            l2=-inf if cut2==0 else arr2[cut2-1]
+            r1=inf if cut1==n else arr1[cut1]
+            r2=inf if cut2==m else arr2[cut2]
+            
+            if l1<=r2 and l2<=r1:
+                return max(l1,l2)
+            if l1>r2:
+                r=cut1-1
+            else:
+                l=cut1+1
+            
+        
         
             
                 
