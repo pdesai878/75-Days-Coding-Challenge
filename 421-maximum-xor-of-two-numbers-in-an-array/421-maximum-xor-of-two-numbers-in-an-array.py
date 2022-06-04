@@ -15,21 +15,23 @@ class Trie:
             if bit not in node.children:
                 node.children[bit]=TrieNode()
             node=node.children[bit]
-        node.val=num
+        
         
             
     def maxXor(self,num):
-        node=self.root
-        curr=0
-        for i in range(31,-1,-1):
-            bit=(num>>i) & 1
-            opp_bit=1-bit
-            if opp_bit in node.children:
-                node=node.children[opp_bit]
+        if not self.root: 
+            return -1
+        p, ans = self.root, 0
+        for i in range(31, -1, -1):
+            cur = (num >> i) & 1
+            if 1 - cur in p.children:
+                p = p.children[1 - cur]
+                ans |= (1 << i)
             else:
-                node=node.children[bit]
+                p = p.children[cur]
+        return ans
         
-        return num^node.val
+        
                 
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
