@@ -5,7 +5,7 @@ class Solution:
                 return False
             ind=0
             for i in range(pos,pos+k):
-                if s[i]==sub[ind] or (sub[ind] in dicti and s[i] in dicti[sub[ind]]):
+                if s[i]==sub[ind] or s[i] in dicti[sub[ind]]:
                     ind+=1
                 else:
                     return False
