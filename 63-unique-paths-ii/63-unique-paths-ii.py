@@ -1,21 +1,32 @@
 class Solution:
-    def uniquePathsWithObstacles(self, grid: List[List[int]]) -> int:
-        def getWays(i,j):
-            if (i,j)==(row-1,col-1):
-                return 1
-            if i>=row or j>=col:
-                return 0
-            if grid[i][j]==1:
-                return 0
-            if dp[i][j]!=-1:
-                return dp[i][j]
-            dp[i][j]=getWays(i+1,j)+getWays(i,j+1)
-            return dp[i][j]
-        
+    def uniquePathsWithObstacles(self, grid: List[List[int]]) -> int:        
         row=len(grid)
         col=len(grid[0])
         if grid[0][0]==1 or grid[-1][-1]==1:
             return 0
-        dp=[[-1 for j in range(col)] for i in range(row)]
-        return getWays(0,0)
+        dp=[[0 for j in range(col)] for i in range(2)]
+        
+        for i in range(row):
+            for j in range(col):
+                if i>=0 and j>=0 and grid[i][j]==1:
+                    dp[i&1][j]=0
+                    continue
+                    
+                if i==0 and j==0:
+                    dp[i&1][j]=1
+                    continue
+                        
+                up=left=0
+                
+                if i>0: 
+                    up = dp[(i-1)&1][j]
+                if j>0:
+                    left = dp[i&1][j-1]
+                    
+                dp[i&1][j]=up+left
+                
+        print(dp)
+        return dp[i&1][-1]
+                
+        
         
