@@ -1,19 +1,29 @@
 class Solution:
-    def minPathSum(self, grid: List[List[int]]) -> int:
-        def getMin(i,j):
-            if (i,j)==(row-1,col-1):
-                return grid[i][j]
-            if i>=row or j>=col:
-                return sys.maxsize
-            if dp[i][j]!=-1:
-                return dp[i][j]
-            down=grid[i][j]+getMin(i+1,j)
-            right=grid[i][j]+getMin(i,j+1)
-            dp[i][j]=min(down,right)
-            return dp[i][j]
-        
+    def minPathSum(self, grid: List[List[int]]) -> int:    
         row=len(grid)
         col=len(grid[0])
-        dp=[[-1 for j in range(col)] for i in range(row)]
-        return getMin(0,0)
+        prev=list(accumulate(grid[0]))
+        for i in range(row):
+            curr=[0]*col
+            for j in range(col):
+                if i==0 and j==0:
+                    curr[j]=grid[i][j]
+                    continue
+                    
+                up=left=sys.maxsize
+                
+                if i>0:
+                    up=prev[j]+grid[i][j]
+                    
+                if j>0:
+                    left=curr[j-1]+grid[i][j]
+                    
+                curr[j]=min(up,left)
+            prev=curr
+            
+        return curr[-1]
+                    
+                    
+                  
+                  
         
