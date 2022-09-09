@@ -11,18 +11,18 @@ class Solution:
             if s==0:
                 return True
             
-            if s<0 or ind<=0:
-                return False
+            if ind==0:
+                return True if nums[ind]==s else False
             
             if dp[ind][s]!=-1:
                 return dp[ind][s]
-            #pick
-            pick=not_pick=False
-            if nums[ind-1]<=target:
-                pick=subsetSum(ind-1,s-nums[ind-1]) or subsetSum(ind-1,s)
+            
             #not pick
-            else:
-                not_pick=subsetSum(ind-1,s)
+            not_pick=subsetSum(ind-1,s)
+            #pick
+            pick=False
+            if nums[ind]<=target:
+                pick=subsetSum(ind-1,s-nums[ind])
             dp[ind][s]=pick or not_pick
             return dp[ind][s]
         
@@ -31,8 +31,8 @@ class Solution:
             return False
         target=sum_//2
         n=len(nums)
-        dp=[[-1 for j in range(target+1)]for i in range(n+1)] 
-        return subsetSum(n,target)
+        dp=[[-1 for j in range(target+1)]for i in range(n)] 
+        return subsetSum(n-1,target)
        
         
             
