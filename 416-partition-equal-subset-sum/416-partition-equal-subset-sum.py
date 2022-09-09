@@ -12,17 +12,19 @@ class Solution:
             return False
         target=sum_//2
         n=len(nums)
-        dp=[[False for j in range(target+1)]for i in range(n)] 
-        for row in range(n):
+        if n==1:
+            return nums[0]==target
+        dp=[[False for j in range(target+1)]for i in range(2)] 
+        for row in range(2):
             dp[row][0]=True
         
         for i in range(1,n):
             for j in range(1,target+1):
                 if nums[i]<=j:
-                    dp[i][j]=dp[i-1][j-nums[i]] or dp[i-1][j]
+                    dp[i&1][j]=dp[(i-1)&1][j-nums[i]] or dp[(i-1)&1][j]
                 else:
-                    dp[i][j]=dp[i-1][j]
-        return dp[-1][-1]
+                    dp[i&1][j]=dp[(i-1)&1][j]
+        return dp[i&1][-1]
                 
                 
        
