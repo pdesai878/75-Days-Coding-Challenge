@@ -6,33 +6,26 @@ class Solution:
         # 2s1=sum
         # s1=sum//2
         # if s1 exists, then partition possible
-        
-        def subsetSum(ind,s):
-            if s==0:
-                return True
-            
-            if ind==0:
-                return True if nums[ind]==s else False
-            
-            if dp[ind][s]!=-1:
-                return dp[ind][s]
-            
-            #not pick
-            not_pick=subsetSum(ind-1,s)
-            #pick
-            pick=False
-            if nums[ind]<=target:
-                pick=subsetSum(ind-1,s-nums[ind])
-            dp[ind][s]=pick or not_pick
-            return dp[ind][s]
-        
+     
         sum_=sum(nums)
         if sum_&1:
             return False
         target=sum_//2
         n=len(nums)
-        dp=[[-1 for j in range(target+1)]for i in range(n)] 
-        return subsetSum(n-1,target)
+        dp=[[False for j in range(target+1)]for i in range(n)] 
+        for row in range(n):
+            dp[row][0]=True
+        
+        for i in range(1,n):
+            for j in range(1,target+1):
+                if nums[i]<=j:
+                    dp[i][j]=dp[i-1][j-nums[i]] or dp[i-1][j]
+                else:
+                    dp[i][j]=dp[i-1][j]
+        return dp[-1][-1]
+                
+                
+       
        
         
             
