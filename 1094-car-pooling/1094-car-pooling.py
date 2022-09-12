@@ -1,15 +1,16 @@
 class Solution:
     def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
-        heap=[]
+        arr=[0]*1001
         for p,pick,drop in trips:
-            heapq.heappush(heap,(pick,p))
-            heapq.heappush(heap,(drop,-p))
-        onboard=0
-        while heap:
-            onboard+=heapq.heappop(heap)[1]
-            if onboard>capacity:
+            arr[pick]+=p
+            arr[drop]-=p
+        
+        for el in arr:
+            capacity-=el
+            if capacity<0:
                 return False
         return True
+     
             
         
             
