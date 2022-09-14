@@ -1,26 +1,32 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        @lru_cache(None)
-        def getMaxProfit(ind,prevBuy):
-            if ind==len(prices):
+        def getMax(ind,buy):
+            if ind==n:
                 return 0
-            mx=0
-            #buy now or dont buy now
-            if not prevBuy:
-                mx=max(-prices[ind]+getMaxProfit(ind+1,True),
-                       getMaxProfit(ind+1,prevBuy))
-                       
-            #sell now or dont sell
+            if dp[ind][buy]!=-1:
+                return dp[ind][buy]
+            if buy: 
+                profit=max(-prices[ind]+getMax(ind+1,0), getMax(ind+1,1))   
             else:
-                mx=max(prices[ind]+getMaxProfit(ind+1,False), getMaxProfit(ind+1,prevBuy))
-            return mx
-                       
-        return getMaxProfit(0,False)
-                       
-            
+                profit=max(prices[ind]+getMax(ind+1,1), getMax(ind+1,0))
+            dp[ind][buy]=profit
+            return dp[ind][buy]
                 
-                       
-                     
-            
-            
+  
+        n=len(prices)
+        dp=[[0 for j in range(2)] for i in range(n+1)]
+        for i in range(n-1,-1,-1):
+            for j in range(2):
+                if j:
+                    dp[i][j]=max(-prices[i]+dp[i+1][0], dp[i+1][1])
+                else:
+                    dp[i][j]=max(prices[i]+dp[i+1][1], dp[i+1][0])
+        
+        return dp[0][1]
+                    
+
+                    
+        
+
+                
         
