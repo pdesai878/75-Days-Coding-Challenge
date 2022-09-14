@@ -1,18 +1,5 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        def getMax(ind,buy):
-            if ind==n:
-                return 0
-            if dp[ind][buy]!=-1:
-                return dp[ind][buy]
-            if buy: 
-                profit=max(-prices[ind]+getMax(ind+1,0), getMax(ind+1,1))   
-            else:
-                profit=max(prices[ind]+getMax(ind+1,1), getMax(ind+1,0))
-            dp[ind][buy]=profit
-            return dp[ind][buy]
-                
-  
         n=len(prices)
         dp=[[0 for j in range(2)] for i in range(2)]
         for i in range(n-1,-1,-1):
