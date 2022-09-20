@@ -1,25 +1,33 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        #bfs kahn's algo
+        #dfs
+        def dfs(node):
+            visited[node]=True
+            dfsVisited[node]=True
+            for neighbor in adj[node]:
+                if not visited[neighbor]:
+                    if dfs(neighbor):
+                        return True
+                elif dfsVisited[neighbor]:
+                    return True
+            dfsVisited[node]=False
+            return False
+        
         adj=defaultdict(list)
         n=numCourses
-        indegree=[0]*n
         for v,u in prerequisites:
             adj[u].append(v)
-            indegree[v]+=1
-        q=deque()
+        visited=[False for node in range(n)]
+        dfsVisited=[False for node in range(n)]
+        topo=[]
         for node in range(n):
-            if indegree[node]==0:
-                q.append(node)
-        courses=0
-        while q:
-            node=q.popleft()
-            courses+=1
-            for neighbor in adj[node]:
-                indegree[neighbor]-=1
-                if indegree[neighbor]==0:
-                    q.append(neighbor)
-        return courses==numCourses
+            if not visited[node]:
+                if dfs(node):
+                    return False
+        return True
+        
+        
+        
             
                 
             
