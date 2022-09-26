@@ -36,7 +36,14 @@ class Trie:
                 
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
-        n = len(bin(max(nums))) - 2
+        def bin_len(no):
+            count=0
+            while no:
+                count+=1
+                no>>=1
+            return count
+        
+        n = bin_len(max(nums))
         root=Trie(n)
         for el in nums:
             root.insert(el)
