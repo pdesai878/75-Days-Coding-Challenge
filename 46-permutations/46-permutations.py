@@ -1,20 +1,19 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def solve(ind):
-            if ind==n:
-                ans.append(nums[::])
+        def getPermutations(ind,temp): 
+            if len(temp)==n:
+                res.append(temp[::])
                 return
                
-            for i in range(ind,n):
-                nums[ind],nums[i]=nums[i],nums[ind]
-                solve(ind+1)
-                nums[ind],nums[i]=nums[i],nums[ind]
-                            
-        ans=[]
+            for i in range(n):
+                if i not in visited:
+                    visited.add(i) 
+                    getPermutations(i,temp+[nums[i]])
+                    visited.remove(i)
+        
+        res=[]
         n=len(nums)
-        solve(0)
-        return ans
-                
-        
-        
-        
+        visited=set()
+        getPermutations(0,[])
+        return res
+       
