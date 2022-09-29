@@ -15,20 +15,19 @@ class Solution:
             return True
             
         def solve(board):
-            for i in range(n):
-                for j in range(n):
-                    if board[i][j]=='.':
+            for r in range(n):
+                for c in range(n):
+                    if board[r][c]==".":
                         for no in range(1,10):
-                            if isPossible(i,j,str(no)):
-                                board[i][j]=str(no)
-                                done=solve(board)
-                                if done:
+                            if isPossible(r,c,str(no)):
+                                board[r][c]=str(no)
+                                if solve(board):
                                     return True
-                                board[i][j]='.'
+                                board[r][c]="."
                         return False
             return True
                     
-        n=9
+        n=len(board)
         solve(board)
         return board
         
