@@ -14,20 +14,33 @@ class Solution:
                 prev=curr
                 curr=nxt
             
-        def reverseK(node):
-            if not node:
-                return
-            start=end=node
-            for _ in range(k-1):
-                end=end.next
-                if not end:
-                    return start
-            nxt=end.next
-            reverse(start,end)
-            start.next=reverseK(nxt)
-            return end
+        dummy=ListNode(-1)
+        dummy.next=head
+        prev=dummy
+        curr=head
+        count=1
+        while curr:
+            if count%k==0:
+                nxt=curr.next
+                start=prev.next
+                end=curr
                 
-        return reverseK(head)
+                
+                reverse(start,end)
+                
+                prev.next=end
+                start.next=nxt
+                prev=start
+                
+                curr=nxt
+            else:
+                curr=curr.next
+            count+=1
+        return dummy.next
+            
+            
+                
+        
             
             
     
