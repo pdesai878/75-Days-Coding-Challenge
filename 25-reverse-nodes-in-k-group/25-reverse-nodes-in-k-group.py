@@ -14,27 +14,20 @@ class Solution:
                 prev=curr
                 curr=nxt
             
-        if head is None or head.next is None or k==1:
-            return head
-        
-        e=head
-        dummy=ListNode(0)
-        prev=dummy
-        prev.next=head
-        i=1
-        while e:
-            if i%k==0:
-                nxt=e.next
-                s=prev.next
-                reverse(s,e)
-                prev.next=e
-                s.next=nxt
-                prev=s
-                e=nxt      
-            else:
-                e=e.next
-            i+=1
-        return dummy.next
+        def reverseK(node):
+            if not node:
+                return
+            start=end=node
+            for _ in range(k-1):
+                end=end.next
+                if not end:
+                    return start
+            nxt=end.next
+            reverse(start,end)
+            start.next=reverseK(nxt)
+            return end
+                
+        return reverseK(head)
             
             
     
