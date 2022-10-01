@@ -10,24 +10,23 @@ class Solution:
             if not node:
                 return
             inorder(node.left)
-            arr.append(node.val)
+            if self.prev and node.val<self.prev.val:
+                if self.first is None:
+                    self.first=self.prev
+                    self.mid=node
+                else:
+                    self.last=node
+            self.prev=node
             inorder(node.right)
             
-        def recover(node):
-            if not node:
-                return
-            recover(node.left)
-            if node.val!=arr[self.p]:
-                node.val=arr[self.p]
-            self.p+=1
-            recover(node.right)
-            
         
-        arr=[]
+        self.prev=TreeNode(-sys.maxsize)
+        self.first=self.mid=self.last=None
         inorder(root)
-        arr.sort()
-       
-        self.p=0
-        recover(root)
+        if self.first and self.last:
+            self.first.val,self.last.val=self.last.val,self.first.val
+        elif self.first and self.mid:
+            self.first.val,self.mid.val=self.mid.val,self.first.val
+            
         return root
         
