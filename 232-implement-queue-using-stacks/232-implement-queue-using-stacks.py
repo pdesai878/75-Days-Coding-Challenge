@@ -5,24 +5,26 @@ class MyQueue:
         self.s2=[]
         
     def push(self, x: int) -> None:
+        self.s1.append(x)
+        
+    def pop(self) -> int:
+        if self.s2:
+            return self.s2.pop()  
         while self.s1:
             self.s2.append(self.s1.pop())
-        self.s1.append(x)
-        while self.s2:
-            self.s1.append(self.s2.pop())
+        return self.s2.pop()
         
-        
-
-    def pop(self) -> int:
-        return self.s1.pop()
-        
-
+                
     def peek(self) -> int:
-        return self.s1[-1]
+        if self.s2:
+            return self.s2[-1]
+        while self.s1:
+            self.s2.append(self.s1.pop())
+        return self.s2[-1]
         
 
     def empty(self) -> bool:
-        return len(self.s1)==0
+        return len(self.s1)==0 and len(self.s2)==0
         
 
 
