@@ -1,32 +1,28 @@
 class MyQueue:
 
     def __init__(self):
-        self.ip=[]
-        self.op=[]
+        self.s1=[]
+        self.s2=[]
         
     def push(self, x: int) -> None:
-        self.ip.append(x)
+        while self.s1:
+            self.s2.append(self.s1.pop())
+        self.s1.append(x)
+        while self.s2:
+            self.s1.append(self.s2.pop())
+        
         
 
     def pop(self) -> int:
-        if self.op:
-            return self.op.pop()
-        else:
-            while self.ip:
-                self.op.append(self.ip.pop())
-            return self.op.pop()
+        return self.s1.pop()
         
+
     def peek(self) -> int:
-        if self.op:
-            return self.op[-1]
-        else:
-            while self.ip:
-                self.op.append(self.ip.pop())
-            return self.op[-1]
+        return self.s1[-1]
         
 
     def empty(self) -> bool:
-        return True if not self.ip and not self.op else False
+        return len(self.s1)==0
         
 
 
