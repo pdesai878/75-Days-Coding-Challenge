@@ -7,29 +7,10 @@
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         def check(left,right):
-            q=deque()
-            q.append((left,right))
-            while q:
-                n=len(q)
-                for _ in range(n):
-                    left,right=q.popleft()
-                    if not left or not right:
-                        if left==right:
-                            continue
-                        return False
-                    if left.val!=right.val:
-                        return False
-                    
-                    q.append((left.left,right.right))
-                    q.append((left.right,right.left))
-            return True
-            
-                    
-                    
-                
-                
+            if not left or not right:
+                return left==right
+            return left.val==right.val and check(left.right,right.left) and check(left.left, right.right)
         
-        return check(root.left,root.right)
-          
+        return check(root,root)
             
         
