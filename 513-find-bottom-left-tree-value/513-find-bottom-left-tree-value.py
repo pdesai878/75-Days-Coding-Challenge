@@ -11,15 +11,16 @@ class Solution:
                 return
             
            
-            if depth not in res:
-                res[depth]=node.val
+            if self.prevdepth<depth:
+                self.res=node.val
+                self.prevdepth=depth
                 
             getRightView(node.left,depth+1)
             getRightView(node.right,depth+1)
             
         
-        res={}
+        self.res=None
+        self.prevdepth=-1
         getRightView(root,0)
-        l=list(res.values())
-        return l[-1]
+        return self.res
         
