@@ -1,29 +1,25 @@
 class Solution:
-    def trap(self, arr: List[int]) -> int:
-        n=len(arr)
+    def trap(self, height: List[int]) -> int:
+        """
+        the level of water contained above each bar=
+        min(ngl,ngr)- height[curr]    
+        """
+        n=len(height)
+        ngl=[height[0]]
+        ngr=[height[-1]]
+        for i in range(1,n):
+            ngl.append(max(ngl[-1],height[i]))
+            ngr.append(max(ngr[-1],height[n-i-1]))
+        ngr.reverse()
         water=0
-        i=0
-        j=n-1
-        leftMax=arr[0]
-        rightMax=arr[n-1]
-        while i<=j:
-            if arr[i]<=arr[j]:
-                if arr[i]>=leftMax:
-                    leftMax=arr[i]
-                else:
-                    water+=leftMax-arr[i]
-                i+=1
-            else:
-                if arr[j]>=rightMax:
-                    rightMax=arr[j]
-                else:
-                    water+=rightMax-arr[j]
-                j-=1
+        for i in range(n):
+            mn=min(ngl[i],ngr[i])-height[i]
+            water+=mn
         return water
-                
-                
+            
             
         
-                
+    
         
+            
         
