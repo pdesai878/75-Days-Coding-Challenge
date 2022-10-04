@@ -14,7 +14,7 @@ class Solution:
                     prev=prev.right
                 prev.right=curr.right
                 curr.right=curr.left
-                curr.left=None    
+                curr.left=None
             
             curr=curr.right
         return res
