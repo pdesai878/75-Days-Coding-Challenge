@@ -1,25 +1,41 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        m=len(nums1)
-        n=len(nums2)
-        arr=[]
-        l=r=i=0
-        while l<m and r<n:
-            if nums1[l]<=nums2[r]:
-                arr.append(nums1[l])
-                l+=1
-            else:
-                arr.append(nums2[r])
-                r+=1
-        if l<m:
-            arr.extend(nums1[l:])
-        elif r<n:
-            arr.extend(nums2[r:])
+        if len(nums1)>len(nums2):
+            return self.findMedianSortedArrays(nums2,nums1)
+        
+        n=len(nums1)
+        m=len(nums2)
+        
+        
+        isEven=True
+        if (n+m)&1:
+            isEven=False
             
-        if (m+n)&1:
-            return arr[(m+n)//2]
-        else:
-            m1=arr[(m+n)//2]
-            m2=arr[(m+n-1)//2]
-            return (m1+m2)/2
+        l=0
+        r=n
+        mid=(n+m+1)//2
+        inf=sys.maxsize
+        while l<=r:
+            cut1=(l+r)//2
+            cut2=mid-cut1
+            
+            l1=-inf if cut1==0 else nums1[cut1-1]
+            l2=-inf if cut2==0 else nums2[cut2-1]
+            r1=inf if cut1==n else nums1[cut1]
+            r2=inf if cut2==m else nums2[cut2]
+            
+            if l1<=r2 and l2<=r1:
+                if isEven:
+                    return (max(l1,l2)+min(r1,r2))/2
+                else:
+                    return max(l1,l2)
+            
+            if l1>r2:
+                r=cut1-1
+            else:
+                l=cut1+1
+        return 0
+        
+                
+            
         
