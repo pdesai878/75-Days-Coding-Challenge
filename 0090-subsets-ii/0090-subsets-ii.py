@@ -1,15 +1,18 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        res=set()
-        n=len(nums)
-        N=1<<n
+        def getSubsets(ind,sub):
+            res.append(sub)
+            
+            for i in range(ind,n):
+                if i!=ind and nums[i]==nums[i-1]:
+                    continue
+                getSubsets(i+1,sub+[nums[i]]) 
         
-        for i in range(N):
-            sub=[]
-            for j in range(n):
-                if i&(1<<j):
-                    sub.append(nums[j])
-            res.add(tuple(sorted(sub)))
+        res=[]
+        n=len(nums)
+        nums.sort()
+        getSubsets(0,[])
         return res
+        
                 
         
