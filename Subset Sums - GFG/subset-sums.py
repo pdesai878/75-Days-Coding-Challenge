@@ -1,20 +1,20 @@
 #User function Template for python3
 class Solution:
 	def subsetSums(self, arr, N):
-	    n=1<<N
 	    res=[]
+	    n=1<<N
 	    for i in range(n):
 	        s=0
 	        for j in range(N):
-	            if i & (1<<j):
+	            if i&(1<<j):
 	                s+=arr[j]
 	        res.append(s)
 	    return res
 	            
-	
+		
 
 #{ 
-#  Driver Code Starts
+ # Driver Code Starts
 #Initial Template for Python 3
 
 if __name__ == '__main__':
