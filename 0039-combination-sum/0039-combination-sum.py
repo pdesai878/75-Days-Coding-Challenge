@@ -4,11 +4,14 @@ class Solution:
             if target==0:
                 res.append(sub)
                 return
+            
             elif target<0 or ind>=n:
                 return
             
-            for i in range(ind,n):
-                getCombo(i,sub+[candidates[i]],target-candidates[i])
+            
+            getCombo(ind,sub+[candidates[ind]],target-candidates[ind])
+            getCombo(ind+1,sub,target)
+            
         
         res=[]
         n=len(candidates)
