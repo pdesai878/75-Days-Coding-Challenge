@@ -1,16 +1,17 @@
 class Solution:
     def minimumAverageDifference(self, nums: List[int]) -> int:
-        left=list(accumulate(nums))
-        right=list(accumulate(nums[::-1]))
         n=len(nums)
         mn=sys.maxsize
         ind=None
+        curr=0
+        s=sum(nums)
         for i in range(n):
-            if i==n-1:
-                l,r=int(left[i]/(i+1)),0
+            curr+=nums[i]
+            l=curr//(i+1)
+            if i!=n-1:
+                r=(s-curr)//(n-i-1) 
             else:
-                l,r=int(left[i]/(i+1)),int(right[n-i-2]/(n-i-1))
-           
+                r=0
             diff=abs(l-r)
             if diff<mn:
                 mn=diff
