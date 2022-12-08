@@ -1,22 +1,52 @@
+class DSU:
+    def __init__(self,n):
+        self.n=n
+        self.parent=[i for i in range(n+1)]
+        self.rank=[0]*(n+1)
+    
+    def findParent(self,node):
+        if self.parent[node]==node:
+            return node
+        self.parent[node]=self.findParent(self.parent[node])
+        return self.parent[node]
+    
+    def union(self,u,v):
+        p1=self.findParent(u)
+        p2=self.findParent(v)
+        
+        if p1!=p2:
+            if self.rank[p1]>=self.rank[p2]:
+                self.parent[p2]=p1
+                self.rank[p1]+=1
+            else:
+                self.parent[p1]=p2
+                self.rank[p2]+=1
+                
+
 class Solution:
     def minScore(self, n: int, roads: List[List[int]]) -> int:
-        graph = defaultdict(dict)
-        for u, v, w in roads:
-            graph[u][v] = graph[v][u] = w
+        dsu=DSU(n)
+       
+        for u,v,wt in roads:
+            dsu.union(u,v)   
         
-        res = inf
-        vis = set()
-        dq = deque([1])
-
-        while dq:
-            node = dq.popleft()
-            for adj, scr in graph[node].items():
-                if adj not in vis:
-                    dq.append(adj)
-                    vis.add(adj)
-                res = min(res,scr)
-                
-        return res
-      
+        self.mn=10**4+1
+        x=dsu.findParent(1)
+        for u,v,wt in roads:
+            p1=dsu.findParent(u)
+            p2=dsu.findParent(v)
             
+            if p1==x or p2==x:
+                self.mn=min(self.mn,wt)
+        return self.mn
+                
+            
+        
+        
+        
+        
+        
+        
+        
+        
         
