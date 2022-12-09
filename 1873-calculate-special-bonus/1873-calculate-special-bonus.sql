@@ -1,1 +1,3 @@
-select employee_id, if( employee_id%2=0 or name like "M%", 0,salary) bonus from Employees order by employee_id;
+  select employee_id , salary * ( employee_id%2 ) * ( name not like 'M%') as bonus
+    from employees
+    order by employee_id;
