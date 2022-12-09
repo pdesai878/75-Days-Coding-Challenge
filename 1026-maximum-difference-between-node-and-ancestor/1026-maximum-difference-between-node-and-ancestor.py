@@ -4,22 +4,20 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        #top down approach
-        def getMax(node,mn,mx):
+        def getMax(node,mx,mn):
             if not node:
-                return mx-mn
+                self.ans=max(self.ans,abs(mx-mn))
+                return
+                
             mx=max(mx,node.val)
             mn=min(mn,node.val)
             
-            return max(getMax(node.left,mn,mx), getMax(node.right,mn,mx))
-        
-        return getMax(root,root.val,root.val)
+            getMax(node.left,mx,mn)
+            getMax(node.right,mx,mn)
             
-            
-        
-        
-        
+        self.ans=-sys.maxsize
+        getMax(root,root.val,root.val)
+        return self.ans
         
