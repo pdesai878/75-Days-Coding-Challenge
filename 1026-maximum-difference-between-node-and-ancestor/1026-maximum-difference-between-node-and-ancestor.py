@@ -8,16 +8,17 @@ class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
         def getMax(node,mx,mn):
             if not node:
-                self.ans=max(self.ans,abs(mx-mn))
-                return
-                
+                return abs(mx-mn)
+                 
             mx=max(mx,node.val)
             mn=min(mn,node.val)
             
-            getMax(node.left,mx,mn)
-            getMax(node.right,mx,mn)
+            left=getMax(node.left,mx,mn)
+            right=getMax(node.right,mx,mn)
             
-        self.ans=-sys.maxsize
-        getMax(root,root.val,root.val)
-        return self.ans
+            return max(left,right)
+            
+        
+        return getMax(root,root.val,root.val)
+       
         
