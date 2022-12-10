@@ -6,27 +6,25 @@
 #         self.right = right
 class Solution:
     def maxProduct(self, root: Optional[TreeNode]) -> int:
-       
-
-        def tree_sum(subroot):
-            if subroot is None: return 0
-            left_sum = tree_sum(subroot.left)
-            right_sum = tree_sum(subroot.right)
-            return left_sum + right_sum + subroot.val
-
-        def maximum_product(subroot, total):
-            best = 0
-            def recursive_helper(subroot):
-                nonlocal best
-                if subroot is None: return 0
-                left_sum = recursive_helper(subroot.left)
-                right_sum = recursive_helper(subroot.right)
-                total_sum = left_sum + right_sum + subroot.val
-                product = total_sum * (tree_total_sum - total_sum)
-                best = max(best, product)
-                return total_sum
-            recursive_helper(subroot)
-            return best
-
-        tree_total_sum = tree_sum(root)
-        return maximum_product(root, tree_total_sum) % (10 ** 9 + 7)
+        def getMax(node):
+            if not node:
+                return 0
+            left=getMax(node.left)
+            right=getMax(node.right)
+            curr=left+right+node.val
+            self.mx=max(self.mx,(total-curr)*curr)
+            return curr
+        
+        
+        def getSum(node):
+            if not node:
+                return 0
+            left=getSum(node.left)
+            right=getSum(node.right)
+            return left+right+node.val
+        
+        total=getSum(root)
+        self.mx=-1
+        getMax(root)
+        return self.mx % (10 ** 9 + 7)
+        
