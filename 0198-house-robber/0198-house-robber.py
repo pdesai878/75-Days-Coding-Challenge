@@ -1,13 +1,10 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        @lru_cache(None)
-        def getMax(ind):
-            if ind>=n:
-                return 0
-            p=nums[ind]+getMax(ind+2)
-            np=getMax(ind+1)
-            return max(p,np)
-        
         n=len(nums)
-        return getMax(0)
+        dp=[0]*n
+        dp[0]=nums[0]
+        for i in range(1,n):
+            dp[i]=max(dp[i-2]+nums[i], dp[i-1])
+        return dp[-1]
+            
         
