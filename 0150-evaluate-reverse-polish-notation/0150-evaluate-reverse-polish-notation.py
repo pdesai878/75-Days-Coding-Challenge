@@ -1,6 +1,6 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        ops = {
+        op = {
             '+' : operator.add,
             '-' : operator.sub,
             '*' : operator.mul,
@@ -8,13 +8,15 @@ class Solution:
             '%' : operator.mod,
             '^' : operator.xor,
         }
-        
-        stack=[]
         res=0
-        for el in tokens:
-            if el not in ops:
-                stack.append(int(el))
+        stack=[]
+        for ch in tokens:
+            if ch not in op:
+                stack.append(int(ch))
             else:
-                a,b=stack.pop(),stack.pop()
-                stack.append(int(ops[el](b,a)))
-        return stack.pop()
+                n2=stack.pop()
+                n1=stack.pop()
+                temp=op[ch](n1,n2)
+                stack.append(int(temp))
+        return stack[0]
+        
