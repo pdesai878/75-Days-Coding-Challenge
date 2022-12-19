@@ -4,6 +4,7 @@ class Solution:
         groups=[]
         size=0
         i=0
+        count=0
         n=len(grades)
         while i<n:
             size+=1
@@ -13,6 +14,7 @@ class Solution:
                     group.append(grades[j])
                 groups.append(group)
                 i=i+size
+                count+=1
             else:
                 for j in range(i,n):
                     groups[-1].append(grades[j])
@@ -20,6 +22,6 @@ class Solution:
            
             
        
-        return len(groups)
+        return count
                     
         
